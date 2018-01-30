@@ -1,16 +1,62 @@
+const nodeExternals = require('webpack-node-externals');
 const { resolve } = require('path');
 
 module.exports = {
 
     build: {
+        babel: {
+            plugins: [
+                ['transform-imports', {
+                    vuetify: {
+                        transform: 'vuetify/es5/components/${member}',
+                        preventFullImport: true,
+                    },
+                }],
+            ],
+        },
+
         analyze: {
             analyzerMode: 'static',
             generateStatsFile: true,
             statsFilename: 'webpack-stats.json',
         },
+
+
+        extend (config, ctx) {
+            // if (ctx.dev && ctx.isClient) {
+            //     config.module.rules.push({
+            //         enforce: 'pre',
+            //         test: /\.(js|vue)$/,
+            //         loader: 'eslint-loader',
+            //         exclude: /(node_modules)/,
+            //     });
+            // }
+            if (ctx.isServer) {
+                config.externals = [
+                    nodeExternals({
+                        whitelist: [/^vuetify/],
+                    }),
+                ];
+            }
+
+            config.module.rules.forEach(rule => {
+                if (rule.test.toString() === '/\\.styl(us)?$/') {
+                    rule.use.push({
+                        loader: 'vuetify-loader',
+                        options: {
+                            theme: resolve('./resources/assets/style/theme.styl'),
+                        },
+                    });
+                }
+            });
+        },
     },
 
-    plugins: ['~/plugins/vuetify.js'],
+    plugins: [
+        {
+            src: '~/plugins/vuetify.js'
+        },
+    ],
 
     css: ['~assets/css/main.css'],
 
