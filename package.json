@@ -10,7 +10,8 @@
     "dev": "adonis serve --dev",
     "dev-debug": "adonis serve --dev --debug",
     "build": "adonis nuxt:build",
-    "start": "cross-env NODE_ENV=production node server.js"
+    "start": "cross-env NODE_ENV=production node server.js",
+    "lint": "eslint --ext .js,.vue resources/"
   },
   "keywords": [
     "adonuxt",
@@ -33,15 +34,29 @@
     "@adonisjs/shield": "^1.0.3",
     "@adonisjs/vow": "^1.0.12",
     "cross-env": "^5.1.0",
-    "nuxt": "^1.0.0-rc11"
+    "nuxt": "latest",
+    "vuetify": "^0.16.9",
+    "axios": "^0.17.1"
+  },
+  "autoload": {
+    "App": "./app"
   },
   "devDependencies": {
-    "standard": "^10.0.3"
-  },
-  "standard": {
-    "globals": [
-      "use",
-      "make"
-    ]
+    "babel-eslint": "^7.2.1",
+    "eslint": "^4.11.0",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-html": "^2.0.0",
+    "eslint-plugin-promise": "^3.4.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-vue": "^3.13.1",
+    "node-sass": "^4.5.3",
+    "nodemon": "^1.11.0",
+    "pug": "^2.0.0-rc.4",
+    "sass-loader": "^6.0.6",
+    "style-loader": "^0.19.0",
+    "stylus": "^0.54.5",
+    "stylus-loader": "^3.0.1",
+    "vuetify-loader": "^0.1.0",
+    "postcss-reduce-idents": "^2.4.0"
   }
 }
